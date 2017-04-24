@@ -79,28 +79,25 @@ app.post('/links',
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
-// app.post('/signup',
-//   (req, res, next) => {
-//     var username = {'username': "Anthony"};
-//     models.Users.create(req.body);
-//     res.end();
-//   })
 
 
 app.post('/signup',
   (req, res, next) => {
   return models.Users.get({'username': req.body.username})
     .then((results) => {
-      if (!results) {
-        console.log('!false')
-        models.Users.create(req.body);
-        res.end()
-      } else if (results) {
-        console.log('true')
+      if (results) {
         res.writeHead(301, {
           'location': '/signup'
+        });
+        res.end();
+      } else if (!results) {
+       return models.Users.create(req.body)
+        .then((results) => {
+          res.writeHead(301, {
+            'location': '/'
+          });
+          res.end();
         })
-        res.end()
       }
     })
     .catch((err) => {
