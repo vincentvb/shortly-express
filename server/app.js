@@ -79,7 +79,13 @@ app.post('/links',
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
-
+app.post('/signup',
+  (req, res, next) => {
+    console.log('!!!signup', req.body);
+    console.log("CREATE", models.Users.create);
+    models.Users.create(req.body);
+    res.end();
+  })
 
 
 /************************************************************/
