@@ -105,6 +105,38 @@ app.post('/signup',
     });
 });
 
+app.post('/login',
+  (req, res, next) => {
+    var encrypted = {};
+    encrypted = req.body;
+    utils.userPassword(encrypted);
+  return models.Users.get(encrypted)
+    .then((results) => {
+      if (results) {
+        if (results.password === encrypted.password) {
+          res.writeHead(301, {
+            'location': '/'
+          });
+          res.end();
+        } else {
+          console.log("IN HERE!")
+          res.writeHead(301, {
+          'location': '/login'
+          });
+          res.end();
+        }
+      } else if (!results) {
+        console.log('Fred', req.body);
+        res.writeHead(301, {
+          'location': '/login'
+        });
+        res.end();
+      }
+    })
+
+    .catch((err) => {throw err;});
+});
+
 /************************************************************/
 // Handle the code parameter route last - if all other routes fail
 // assume the route is a short code and try and handle it here.
