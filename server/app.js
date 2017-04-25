@@ -119,14 +119,12 @@ app.post('/login',
           });
           res.end();
         } else {
-          console.log("IN HERE!")
           res.writeHead(301, {
           'location': '/login'
           });
           res.end();
         }
       } else if (!results) {
-        console.log('Fred', req.body);
         res.writeHead(301, {
           'location': '/login'
         });

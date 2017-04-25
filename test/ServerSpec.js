@@ -47,7 +47,7 @@ describe('', function() {
     /**************************************************************************************/
     /* TODO: If you create a new MySQL tables, add it to the tablenames collection below. */
     /**************************************************************************************/
-    var tablenames = ['links', 'clicks', 'users'
+    var tablenames = ['links', 'clicks', 'users', 'sessions'
 ];
 
     db.connect(function(err) {
@@ -62,7 +62,7 @@ describe('', function() {
     afterEach(function() { server.close(); });
   });
 
-  describe('Database Schema:', function() {
+  xdescribe('Database Schema:', function() {
     it('contains a users table', function(done) {
       var queryString = 'SELECT * FROM users';
       db.query(queryString, function(err, results) {
@@ -125,7 +125,7 @@ describe('', function() {
     });
   });
 
-  describe('Account Creation:', function() {
+  xdescribe('Account Creation:', function() {
 
     it('signup creates a new user record', function(done) {
       var options = {
@@ -210,7 +210,7 @@ describe('', function() {
     });
   });
 
-  describe('Account Login:', function() {
+  xdescribe('Account Login:', function() {
 
     beforeEach(function(done) {
       var options = {
@@ -328,11 +328,11 @@ describe('', function() {
     });
   });
 
-  xdescribe('Express Middleware', function() {
+  describe('Express Middleware', function() {
     var cookieParser = require('../server/middleware/cookieParser.js');
     var createSession = require('../server/middleware/auth.js').createSession;
 
-    describe('Cookie Parser', function() {
+    xdescribe('Cookie Parser', function() {
 
       it('parses cookies and assigns an object of key-value pairs to a session property on the request', function(done) {
         var requestWithoutCookies = httpMocks.createRequest();
