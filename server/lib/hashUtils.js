@@ -11,7 +11,8 @@ exports.userPassword = (user) => {
   }
 
 exports.uniqueHash = () => {
-  let shasum = crypto.createHash('sha1');
-  var data = shasum.read();
-  return data.toString('hex');
+  // let shasum = crypto.createHash('sha1');
+  // var data = shasum.read();
+  // return data.toString('hex');
+  return crypto.createHash('sha1').update(Math.random().toString()).digest('hex');
 }

@@ -24,6 +24,16 @@ app.get('/',
   res.render('index');
 });
 
+app.get('/signup', 
+(req, res) => {
+  res.render('signup');
+});
+
+app.get('/login', 
+(req, res) => {
+  res.render('login');
+});
+
 app.get('/create', 
 (req, res) => {
   res.render('index');
@@ -86,17 +96,11 @@ app.post('/signup',
   return models.Users.get({'username': req.body.username})
     .then((results) => {
       if (results) {
-        res.writeHead(301, {
-          'location': '/signup'
-        });
-        res.end();
+        res.redirect('/login');
       } else if (!results) {
        return models.Users.create(req.body)
         .then((results) => {
-          res.writeHead(301, {
-            'location': '/'
-          });
-          res.end();
+          res.redirect('/');
         })
       }
     })
@@ -110,29 +114,19 @@ app.post('/login',
     var encrypted = {};
     encrypted = req.body;
     utils.userPassword(encrypted);
-  return models.Users.get(encrypted)
-    .then((results) => {
-      if (results) {
-        if (results.password === encrypted.password) {
-          res.writeHead(301, {
-            'location': '/'
-          });
-          res.end();
-        } else {
-          res.writeHead(301, {
-          'location': '/login'
-          });
-          res.end();
+    return models.Users.get(encrypted)
+      .then((results) => {
+        if (results) {
+          if (results.password === encrypted.password) {
+            res.redirect('/');
+          } else {
+            res.redirect('/login');
+          }
+        } else if (!results) {
+          res.redirect('/login');
         }
-      } else if (!results) {
-        res.writeHead(301, {
-          'location': '/login'
-        });
-        res.end();
-      }
-    })
-
-    .catch((err) => {throw err;});
+      })
+  .catch((err) => {throw err;});
 });
 
 /************************************************************/

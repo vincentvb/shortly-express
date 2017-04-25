@@ -62,7 +62,7 @@ describe('', function() {
     afterEach(function() { server.close(); });
   });
 
-  xdescribe('Database Schema:', function() {
+  describe('Database Schema:', function() {
     it('contains a users table', function(done) {
       var queryString = 'SELECT * FROM users';
       db.query(queryString, function(err, results) {
@@ -172,7 +172,7 @@ describe('', function() {
       });
     });
 
-    it('redirects to signup if the user already exists', function(done) {
+    it('redirects to login if the user already exists', function(done) {
       var options = {
         'method': 'POST',
         'uri': 'http://127.0.0.1:4568/signup',
@@ -186,7 +186,7 @@ describe('', function() {
         if (error) { return done(error); }
         request(options, function(err, response, resBody) {
           if (err) { return done(err); }
-          expect(response.headers.location).to.equal('/signup');
+          expect(response.headers.location).to.equal('/login');
           done();
         });        
       });
@@ -332,9 +332,9 @@ describe('', function() {
     var cookieParser = require('../server/middleware/cookieParser.js');
     var createSession = require('../server/middleware/auth.js').createSession;
 
-    xdescribe('Cookie Parser', function() {
+    describe('Cookie Parser', function() {
 
-      it('parses cookies and assigns an object of key-value pairs to a session property on the request', function(done) {
+      xit('parses cookies and assigns an object of key-value pairs to a session property on the request', function(done) {
         var requestWithoutCookies = httpMocks.createRequest();
         var requestWithCookies = httpMocks.createRequest({
           headers: {
@@ -375,7 +375,7 @@ describe('', function() {
     });
 
     describe('Session Parser', function() {
-      it('initializes a new session when there are no cookies on the request', function(done) {
+      xit('initializes a new session when there are no cookies on the request', function(done) {
         var requestWithoutCookies = httpMocks.createRequest();
         var response = httpMocks.createResponse();
 
@@ -388,7 +388,7 @@ describe('', function() {
         });
       });
 
-      it('sets a new cookie on the response when a session is initialized', function(done) {
+      xit('sets a new cookie on the response when a session is initialized', function(done) {
         var requestWithoutCookie = httpMocks.createRequest();
         var response = httpMocks.createResponse();
 
@@ -400,7 +400,7 @@ describe('', function() {
         });
       });
 
-      it('assigns a session object to the request if a session already exists', function(done) {
+      xit('assigns a session object to the request if a session already exists', function(done) {
 
         var requestWithoutCookie = httpMocks.createRequest();
         var response = httpMocks.createResponse();
@@ -421,7 +421,7 @@ describe('', function() {
         });
       });
 
-      it('creates a new hash for each new session', function(done) {
+      xit('creates a new hash for each new session', function(done) {
         var requestWithoutCookies = httpMocks.createRequest();
         var response = httpMocks.createResponse();
 
